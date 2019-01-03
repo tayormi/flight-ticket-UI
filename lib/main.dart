@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:test_app/CustomAppBar.dart';
 import 'package:test_app/CustomShapeClipper.dart';
 import 'package:intl/intl.dart';
 
@@ -12,6 +13,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: CustomAppBar(),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
