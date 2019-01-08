@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:test_app/CustomAppBar.dart';
 import 'package:test_app/CustomShapeClipper.dart';
 import 'package:intl/intl.dart';
+import 'package:test_app/flight_list.dart';
 
 void main() => runApp(MaterialApp(
   title: 'Flight List Mock Up',
@@ -227,7 +228,12 @@ class _HomeScreenTopPartState extends State<HomeScreenTopPart> {
                         suffixIcon: Material(
                           elevation: 2.0,
                           borderRadius: BorderRadius.all(Radius.circular(30.0),),
-                          child: Icon(Icons.search, color: Colors.black,),
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.push(context, MaterialPageRoute(
+                                builder: (context) => FlightListingScreen()));
+                            },
+                            child: Icon(Icons.search, color: Colors.black,)),
                         ),
                         border: InputBorder.none,
                       ),
