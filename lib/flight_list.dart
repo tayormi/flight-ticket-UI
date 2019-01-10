@@ -19,10 +19,122 @@ class FlightListingScreen extends StatelessWidget {
           Navigator.pop(context);
         },),
       ),
-      body: Column(
+      body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+              child: Column(
+          children: <Widget>[
+            FlightListTopPart(),
+            SizedBox(height: 20.0,),
+            FlightListingBottomPart(),
+          ],
+        ),
+      ),
+    );
+  } 
+}
+class FlightListingBottomPart extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(left: 16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          FlightListTopPart()
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Text(
+              "Best Deals for Next 6 Months",
+              style: dropDownMenuItemStyle
+            ),
+          ),
+          SizedBox(height: 10.0,),
+          ListView(
+            shrinkWrap: true,
+            physics: ClampingScrollPhysics(),
+            scrollDirection: Axis.vertical,
+          children: <Widget>[
+            FlightCard(),
+          FlightCard(),
+          FlightCard(),
+          FlightCard()
+          ],
+          )
+          
         ],
+      ),
+    );
+  }
+}
+class FlightCard extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Stack(
+            children: <Widget>[
+            Container(
+              margin: const EdgeInsets.only(right: 16.0),
+              height: 100.0,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(10.0),),
+                border: Border.all(color: flightBorderColor)),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        Text("${formatCurrency.format(4159)}", 
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0, ),),
+                        SizedBox(width: 4.0,),
+                        Text("(${formatCurrency.format(9999)})", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0, decoration: TextDecoration.lineThrough, color: Colors.grey),),
+                      ],
+                    ),
+                    Wrap(
+                      spacing: 8.0,
+                      runSpacing: -8.0,
+                      children: <Widget>[
+                        FlightDetailChip(Icons.calendar_today, 'June 2019'),
+                        FlightDetailChip(Icons.flight_takeoff, 'Arik Air'),
+                        FlightDetailChip(Icons.star, '4.4'),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+        ),
+        Positioned(
+          top: 10.0,
+          right: 0.0,
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                  child: Text('55%', 
+                  style: TextStyle(color: appTheme.primaryColor, fontSize: 14.0, fontWeight: FontWeight.bold),),
+                  decoration: BoxDecoration(color: discountBackgroundColor,
+                  borderRadius: BorderRadius.all(Radius.circular(10.0))),
+          ),
+        )
+            ],
+      ),
+    );
+  }
+}
+class FlightDetailChip extends StatelessWidget {
+
+final IconData iconData;
+final String label;
+  FlightDetailChip(this.iconData, this.label);
+  @override
+  Widget build(BuildContext context) {
+    return RawChip(
+      padding: EdgeInsets.all(-4.0),
+      label: Text(label),
+      labelStyle: TextStyle(color: Colors.black, fontSize: 14.0),
+      backgroundColor: chipBackgroundColor,
+      avatar: Icon(iconData, size: 14.0,),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(10.0))
       ),
     );
   }
@@ -43,25 +155,43 @@ class FlightListTopPart extends StatelessWidget {
             height: 160.0,
           ),
         ),
-        Card(
-          margin: EdgeInsets.symmetric(horizontal: 16.0),
-          elevation: 10.0,
-          child: Container(
-            child: Row(children: <Widget>[
-              Column(
-                children: <Widget>[
-                  Text('Lagos (LOS)', style: TextStyle(
-                    fontSize: 16.0
-                  ),),
-                  Divider(color: Colors.grey,),
-                  Text('Abuja (MIA)', style: TextStyle(
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.bold
-                  ),)
-                ],
-              )
-            ],),
-          ),
+        Column(
+          children: <Widget>[
+            SizedBox(height: 20.0,),
+            Card(
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
+              margin: EdgeInsets.symmetric(horizontal: 16.0),
+              elevation: 10.0,
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 22.0),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: <Widget>[
+                  Expanded(
+                    flex: 5,
+                      child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text('Lagos (LOS)', style: TextStyle(
+                          fontSize: 16.0
+                        ),),
+                        Divider(color: Colors.grey, height: 20.0,),
+                        Text('Abuja (MIA)', style: TextStyle(
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.bold
+                        ),)
+                      ],
+                    ),
+                  ),
+                  Spacer(),
+                  Expanded(
+                    flex: 1,
+                    child: Icon(Icons.import_export, color: Colors.black, size: 32.0,))
+                ],),
+              ),
+            ),
+          ],
         )
       ],
     );
