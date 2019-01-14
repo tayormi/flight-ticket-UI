@@ -1,6 +1,6 @@
-# test_app
+# flight_ticket
 
-A new Flutter application.
+An Application written in flutter to get flight tickets.
 
 ## Getting Started
 

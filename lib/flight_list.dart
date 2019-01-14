@@ -6,6 +6,16 @@ final Color discountBackgroundColor = Color(0xFFFFE08D);
 final Color flightBorderColor = Color(0xFFE6E6E6);
 final Color chipBackgroundColor = Color(0xFFF6F6F6);
 
+class InheritedFlightListing extends InheritedWidget {
+final String fromLocation, toLocation;
+  InheritedFlightListing({this.fromLocation, this.toLocation, Widget child}) : super(child: child);
+  @override
+  bool updateShouldNotify(InheritedWidget oldWidget) => true;
+
+  static InheritedFlightListing of(BuildContext context) => 
+  context.inheritFromWidgetOfExactType(InheritedFlightListing);
+
+}
 class FlightListingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -140,6 +150,7 @@ final String label;
   }
 }
 class FlightListTopPart extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -173,11 +184,11 @@ class FlightListTopPart extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text('Lagos (LOS)', style: TextStyle(
+                        Text('${InheritedFlightListing.of(context).fromLocation}', style: TextStyle(
                           fontSize: 16.0
                         ),),
                         Divider(color: Colors.grey, height: 20.0,),
-                        Text('Abuja (MIA)', style: TextStyle(
+                        Text('${InheritedFlightListing.of(context).toLocation}', style: TextStyle(
                           fontSize: 16.0,
                           fontWeight: FontWeight.bold
                         ),)
